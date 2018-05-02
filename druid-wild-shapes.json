@@ -1,0 +1,37 @@
+[
+{
+    "name": "Brown Bear",
+    "size": "Large",
+    "ac":"11",
+    "hp": {
+      "num": 4,
+      "type": 10,
+      "modifier": 12,
+      "average": 34
+    },
+    "speed":"40ft, climb 30ft",
+    "attributes": {
+        "str":"19 (+4)",
+        "dex":"10 (+0)",
+        "con":"16 (+3)",
+        "int":"2 (-4)",
+        "wis":"13 (+1)",
+        "cha":"7 (-2)"
+    },
+    "skills":"Perception +3",
+    "senses":"passive Perception 13",
+    "languages":"",
+    "challenge": "1",
+    "properties":"Keen Smell: advantage on Perception checks that rely on smell",
+    "actions": {
+        "Bite": {"info" : "Melee Weapon Attack, +5 to hit, reach 5ft, one target",
+                 "hit" : "8 (1d8 + 4 piercing damage)"},
+        "Claw": {
+          "info": "Melee Weapon Attack, +5 to hit, reach 5ft, one target",
+          "hit": "11 (2d6 + 4) slashing damage)"
+        }
+    }
+}
+
+
+]
