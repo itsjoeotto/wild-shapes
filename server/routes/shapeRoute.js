@@ -9,6 +9,8 @@ router.get('/', function (req, res) {
             console.log("ERROR! : ", err);
             res.sendStatus(500);
         } else {
+            console.log('/=============== SHAPES ===============/');
+            console.log(shapes);
             res.send(shapes);
         }
     });

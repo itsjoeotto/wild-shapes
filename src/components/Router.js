@@ -19,4 +19,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(Router)(Router);
+export default connect(mapStateToProps)(Router);

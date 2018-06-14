@@ -29,4 +29,4 @@ const store = createStore(
     )
 );
 
-ReactDOM.render(<Provider store={store}> <Router /> </Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><Router /></Provider>, document.getElementById('root'));
