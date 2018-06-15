@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 class ShapeTile extends Component {
 
-  goToShape = () => {
-    console.log('click', this.props.details);
-    let shapeId = this.props.details.id;
-    this.props.routing.history.push(`/shape/${shapeId}`);
+  selectShape = () => {
+    this.props.dispatch({type: 'SELECT_SHAPE', payload: this.props.shape});
   }
 
   render() {
     console.log('props', this.props);
-    const details = this.props.details;
+    const details = this.props.shape;
     return (
-      <div onClick={this.goToShape}>{details.name}, {details.ac}</div>
+      <div>
+        <Link to={`/shape/${details._id}`} onClick={this.selectShape}>{details.name}, {details.ac}</Link>
+      </div>
     );
   }
 }
 
-export default ShapeTile;
+const mapStateToProps = reduxState => ({
+  reduxState,
+});
+
+export default connect(mapStateToProps)(ShapeTile);

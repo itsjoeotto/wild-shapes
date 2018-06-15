@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import '../App.css';
 import ShapeTile from './ShapeTile';
-import HitPoints from './HitPoints';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import base from '../base';
 
 class App extends Component {
 
-  componentDidMount = () => {
-    this.ref = base.syncState()
+componentDidMount() {
+  if (this.props.reduxState.shapeListReducer.length === 0) {
+    axios.get('/shapes').then(res => {
+      this.props.dispatch({ type: 'SET_SHAPES', payload: res.data });
+    });
   }
-
+}
 
   render() {
     return (
       <div>
-        {/* <ul className="shapes">
-          {Object.keys(this.state.shapes).map(key => <ShapeTile
-            key={key}
-            index={key} 
-            routing={this.props} 
-            details={this.state.shapes[key]} />)}
-        </ul> */}
-        {/* <HitPoints hitPoints={this.state.hp} data={this.state.shapes[0]} rollHitPoints={this.rollHitPoints} /> */}
+        {(this.props.reduxState.shapeListReducer) ? this.props.reduxState.shapeListReducer.map(shape => {
+          return <ShapeTile key={shape._id}
+                  shape={shape} />
+        }) : null}
       </div>
     );
   }
