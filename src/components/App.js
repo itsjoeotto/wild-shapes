@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-componentDidMount() {
-  if (this.props.reduxState.shapeListReducer.length === 0) {
+componentWillMount() {
+  if (this.props.reduxState.druidWildShapesReducer.shapes.length === 0) {
     axios.get('/shapes').then(res => {
       this.props.dispatch({ type: 'SET_SHAPES', payload: res.data });
     });
@@ -17,7 +17,7 @@ componentDidMount() {
   render() {
     return (
       <div>
-        {(this.props.reduxState.shapeListReducer) ? this.props.reduxState.shapeListReducer.map(shape => {
+        {(this.props.reduxState.druidWildShapesReducer) ? this.props.reduxState.druidWildShapesReducer.shapes.map(shape => {
           return <ShapeTile key={shape._id}
                   shape={shape} />
         }) : null}

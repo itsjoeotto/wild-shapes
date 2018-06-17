@@ -7,23 +7,29 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const shapeListReducer = (state = [], action) => {
+const druidWildShapesReducer = (state = { shapes: [],
+                                    selectedShape: {},
+                                    shapeHP: 0}, action) => {
     switch (action.type) {
         case 'SET_SHAPES':
-            return action.payload;
+            return {...state, shapes: action.payload};
+        case 'SELECT_SHAPE':
+            return {...state, selectedShape: action.payload};
+        case 'SET_HP':
+            return {...state, shapeHP: action.payload}
         default:
             return state;
     }
 }
 
-const selectShapeReducer = (state = [], action) => {
-    switch (action.type) {
-        case 'SELECT_SHAPE':
-            return action.payload;
-        default:
-            return state;
-    }
-}
+// const selectShapeReducer = (state = [], action) => {
+//     switch (action.type) {
+//         case 'SELECT_SHAPE':
+//             return action.payload;
+//         default:
+//             return state;
+//     }
+// }
 
 const composeEnhancers = composeWithDevTools({
     // Specify custom devTools options
@@ -31,8 +37,8 @@ const composeEnhancers = composeWithDevTools({
 
 const store = createStore(
     combineReducers({
-        shapeListReducer,
-        selectShapeReducer
+        druidWildShapesReducer,
+        // selectShapeReducer
     }),
     composeEnhancers(
         applyMiddleware(logger)

@@ -8,7 +8,7 @@ export function generateHitPoints(dice) {
     let totalHP = 0;
 
     for (var i = 1; i <= dice.num; i++) {
-        totalHP = totalHP + getRandomIntInclusive(1, dice.type);
+        totalHP = totalHP + getRandomIntInclusive(1, dice.diceType);
         console.log('totalhp', totalHP);
     }
 
