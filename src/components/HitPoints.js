@@ -7,14 +7,16 @@ class HitPoints extends Component {
   roll4pwny = () => {
     let hpData = this.props.hp;
     let hpValue = generateHitPoints(hpData);
-    this.props.dispatch({type: 'SET_HP', payload: hpValue});
+    this.props.dispatch({type: 'SET_TOTAL_HP', payload: hpValue});
+    this.props.dispatch({type: 'SET_CURRENT_HP', payload: hpValue});
   }
 
   render() {
-    console.log('props wooooooooo', this.props);
+    let currentHP = this.props.reduxState.druidWildShapesReducer.shapeHP.currentHP;
+    let totalHP = this.props.reduxState.druidWildShapesReducer.shapeHP.totalHP;
     return (
       <div>
-          <h1>Hit Points: {this.props.reduxState.druidWildShapesReducer.shapeHP}</h1>
+          <h1>Hit Points: {currentHP}/{totalHP}</h1>
         <button onClick={this.roll4pwny} >Roll Hit Dice</button>
       </div>
     );
