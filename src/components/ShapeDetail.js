@@ -7,7 +7,6 @@ class ShapeDetail extends Component {
   componentWillMount() {
     let idParam = this.props.match.params.shapeId;
     let id = this.props.reduxState.druidWildShapesReducer.shapes.filter(shape => shape._id === idParam);
-    console.log('param', id);
     if (id.length === 0) {
       console.log('hi');
       
@@ -36,8 +35,14 @@ class ShapeDetail extends Component {
         <p>Skills: {shape.skills}</p>
         <p>Senses: {shape.senses}</p>
         <p>Challenge: {shape.challenge}</p>
-        <p>Traits: {shape.traits}</p>
-        <p>Actions: {shape.actions} </p>
+        <p>Traits:</p>
+        {shape.traits.map(trait => {
+          return <p key={shape.traits.indexOf(trait)}>{trait}</p>
+        })}
+        <p>Actions: </p>
+        {shape.actions.map(action => {
+          return <p key={shape.actions.indexOf(action) + 20}>{action}</p>
+        })}
         <HitPoints hp={shape.hp}/>
       </div>
     );

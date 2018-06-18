@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { generateHitPoints } from '../helpers';
+import CombatLog from './CombatLog';
 
 class HitPoints extends Component {
 
@@ -10,9 +11,12 @@ class HitPoints extends Component {
 
   roll4pwny = () => {
     let hpData = this.props.hp;
+    //return a random roll based on a shape's hit dice data
     let hpValue = generateHitPoints(hpData);
     this.props.dispatch({ type: 'SET_TOTAL_HP', payload: hpValue });
     this.props.dispatch({ type: 'SET_CURRENT_HP', payload: hpValue });
+    //create initial combat log index
+    this.props.dispatch({ type: 'SET_COMBAT_LOG', payload: hpValue });
   }
 
   handleValueChange = propertyName => ev => {
@@ -24,6 +28,7 @@ class HitPoints extends Component {
       let newCurrentHP = this.props.reduxState.druidWildShapesReducer.shapeHP.currentHP -= this.state.healOrDamageValue;
       this.props.dispatch({ type: 'SET_CURRENT_HP', payload: newCurrentHP });
       this.createCombatLogEntry(ev.target.id, this.state.healOrDamageValue);
+      //if HP is at max, return without doing anything
     } else if (ev.target.id === 'heal'  && this.props.reduxState.druidWildShapesReducer.shapeHP.currentHP === this.props.reduxState.druidWildShapesReducer.shapeHP.totalHP) {
       return;
     } else if (ev.target.id === 'heal') {
@@ -45,10 +50,10 @@ class HitPoints extends Component {
 
   createCombatLogEntry = (logType, value) => {
     if (logType === 'damage') {
-      let logEntry = `- ${value}`;
+      let logEntry = ` - ${value}`;
       this.props.dispatch({ type: 'SET_COMBAT_LOG', payload: logEntry })
     } else if (logType === 'heal') {
-      let logEntry = `+ ${value}`;
+      let logEntry = ` + ${value}`;
       this.props.dispatch({ type: 'SET_COMBAT_LOG', payload: logEntry })
     }
   }
@@ -63,6 +68,8 @@ class HitPoints extends Component {
         <button type="button" id="damage" onClick={this.changeHp}>Damage</button>
         <input name="healOrDamageValue" value={this.state.healOrDamageValue} onChange={this.handleValueChange('healOrDamageValue')} type="number" />
         <button type="button" id="heal" onClick={this.changeHp}>Heals</button>
+
+        <CombatLog />
       </div>
     );
   }
