@@ -23,6 +23,9 @@ class HitPoints extends Component {
     if (ev.target.id === 'damage') {
       let newCurrentHP = this.props.reduxState.druidWildShapesReducer.shapeHP.currentHP -= this.state.healOrDamageValue;
       this.props.dispatch({ type: 'SET_CURRENT_HP', payload: newCurrentHP });
+      this.createCombatLogEntry(ev.target.id, this.state.healOrDamageValue);
+    } else if (ev.target.id === 'heal'  && this.props.reduxState.druidWildShapesReducer.shapeHP.currentHP === this.props.reduxState.druidWildShapesReducer.shapeHP.totalHP) {
+      return;
     } else if (ev.target.id === 'heal') {
       //make sure this is adding instead of concatenating
       let stateValueAsNumber = parseInt(this.state.healOrDamageValue, 10);
@@ -36,9 +39,8 @@ class HitPoints extends Component {
 
       //set current hp state to new value or max hp
       this.props.dispatch({ type: 'SET_CURRENT_HP', payload: newCurrentHP });
-    }
-
-    this.createCombatLogEntry(ev.target.id, this.state.healOrDamageValue);
+      this.createCombatLogEntry(ev.target.id, this.state.healOrDamageValue);
+    }  
   }
 
   createCombatLogEntry = (logType, value) => {
